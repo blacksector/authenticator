@@ -1,0 +1,36 @@
+page-login {
+
+  ion-content {
+    background-color: map-get($colors, "dark") !important;
+  }
+  ion-title {
+    text-align: center;
+    color: white;
+  }
+
+  .logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 5em;
+    width: 10em;
+    height: 10em;
+
+  }
+
+  ion-item {
+    border-radius: 6px !important;
+    // padding-left: 30px !important;
+    // margin-bottom: 0px;
+    // border: 1px solid black;
+    box-shadow: 2px 2px 1px grey;
+    background-color: map-get($colors, "darker") !important;
+  }
+
+  .text-input {
+    border: 0px;
+    color: map-get($colors, "light");
+  }
+
+}

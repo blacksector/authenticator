@@ -1,0 +1,31 @@
+<ion-header no-shadow no-border>
+  <ion-navbar transparent>
+    <ion-title>Add Code</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <button ion-item (click)="scanWithCamera()">
+      Scan qr code
+    </button>
+    <button ion-item (click)="manualInput()">
+      Add code manually
+    </button>
+  </ion-list>
+
+  <ion-card *ngIf="scanData">
+    <ion-card-content>
+      <p>Type: {{ scanData.type }}</p>
+      <p>Secret: {{ scanData.secret }}</p>
+      <p>Period: {{ scanData.period }}</p>
+      <p>Label: {{ scanData.label }}</p>
+      <p>Issuer: {{ scanData.issuer }}</p>
+      <p>Digits: {{ scanData.digits }}</p>
+      <p>Algorithm: {{ scanData.algorithm }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

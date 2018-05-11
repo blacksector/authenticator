@@ -1,0 +1,59 @@
+<ion-header no-shadow no-border>
+  <ion-navbar transparent>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="logo">
+    <img  src="assets/imgs/logo.png"  />
+  </div>
+
+  <!-- <ion-list no-lines style="border-style: none;">
+
+    <ion-item>
+
+      <ion-label fixed>Username</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+     <ion-label fixed>Password</ion-label>
+     <ion-input type="password"></ion-input>
+    </ion-item>
+
+  </ion-list> -->
+
+  <!-- <form [formGroup]="phoneSignInForm" (ngSubmit)="phoneSignInFormSubmit()" padding>
+
+    <ion-item no-lines>
+      <ion-input  type="text" formControlName="number" name="number" required clearInput placeholder="Number"></ion-input>
+    </ion-item>
+    <br />
+    <br />
+
+    <button ion-button color="secondary" outline type="submit" block [disabled]="!phoneSignInForm.valid">Sign In</button>
+
+  </form> -->
+
+  <form [formGroup]="signInForm" (ngSubmit)="signInFormSubmit()" padding>
+
+    <ion-item no-lines>
+      <ion-input  type="email" formControlName="email" name="email" required clearInput placeholder="Email"></ion-input>
+    </ion-item>
+    <br />
+    <ion-item no-lines>
+      <ion-input type="password" formControlName="password" clearInput placeholder="Password"></ion-input>
+    </ion-item>
+
+    <br />
+
+    <button ion-button color="secondary" outline type="submit" block [disabled]="!signInForm.valid">Sign In</button>
+
+  </form>
+
+  <div padding>
+    <button ion-button color="primary" clear type="submit" block (click)="signup()">Don't have an account? Sign Up.</button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,53 @@
+<ion-content>
+
+  <ion-slides pager>
+
+
+    <ion-slide>
+      <p class="slide-title">Welcome to Authenticator</p>
+      <div padding>
+        <img class="logo" src="assets/imgs/logo.png" />
+        <br /> <br />
+        <p class="slide-body">An awesome two factor authentication app.</p>
+        <p class="slide-body">Slide through to get introduced, or click skip to get started straight away!</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="slide1">
+      <p class="slide-title">Signing In</p>
+      <div padding>
+        <img class="verify-dialog" src="assets/imgs/welcome/verify-dialog.png" />
+        <br /> <br />
+        <p class="slide-body" text-left>After you have turned on 2 factor authentication, you will need the following to sign in to any account:</p>
+        <p class="slide-body" text-left><ion-icon name="ios-key"></ion-icon> Your password.</p>
+        <p class="slide-body" text-left><ion-icon name="ios-lock"></ion-icon> A code this app will generate for you.</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="slide2">
+      <p class="slide-title">Ready?</p>
+
+      <div padding>
+        <img class="verify-dialog" src="assets/imgs/welcome/verified-dialog.png" />
+        <br /> <br />
+        <p class="slide-body">Psst, consider signing up for an account so that if any of your codes get lost you can recover them!</p>
+        <button ion-button block outline color="light" (click)="continue()">
+          Get Started
+        </button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-footer no-shadow no-border>
+    <ion-navbar transparent>
+      <ion-buttons>
+        <button *ngIf="!this.slides.isBeginning()" ion-button icon-left (click)="this.slides.slidePrev()" color="light"><ion-icon name="ios-arrow-back"></ion-icon> Previous</button>
+        <button *ngIf="!this.slides.isEnd() && this.slides.isBeginning()" ion-button icon-right (click)="continue()" color="light">Skip</button>
+      </ion-buttons>
+      <ion-buttons end>
+        <button *ngIf="!this.slides.isEnd()" ion-button icon-right (click)="this.slides.slideNext()" color="light">Next <ion-icon name="ios-arrow-forward"></ion-icon></button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-footer>
+
+</ion-content>
