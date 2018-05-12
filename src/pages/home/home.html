@@ -3,6 +3,7 @@
     <ion-title>Authenticator</ion-title>
     <ion-buttons end>
       <button *ngIf="!loggedIn" ion-button icon-right (click)="login()" color="dark"><ion-icon name="ios-person"></ion-icon></button>
+      <button *ngIf="loggedIn" ion-button icon-right (click)="logout()" color="dark"><ion-icon name="ios-log-out"></ion-icon></button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -14,26 +15,32 @@
       <ion-col *ngFor="let account of accounts; let i = index" col-xlg-2 col-lg-3 col-md-4 col-sm-12 col-12 (click)="accountDetails(i)">
         <ion-card>
           <ion-card-content>
-            <img class="logos" float-left src="https://logo.clearbit.com/{{account.link}}?size=25" /><div class="providers" float-left> &nbsp; {{account.issuer}}</div>
+            <img *ngIf="account.link" class="logos" float-left src="https://logo.clearbit.com/{{account.link}}?size=25" />
+            <img *ngIf="!account.link" class="logos" float-left src="assets/imgs/logo.png" />
+            <div class="providers" float-left> &nbsp; {{account.issuer}}</div>
             <br />
             <p class="card-title">
-              {{account.code}} <circle-progress float-right [percent]="account.timer"></circle-progress>
-              <!-- <ngx-countdown time="1602680800000" format="{dd}d {hh}h {mm}m {ss}s"></ngx-countdown> -->
+              {{account.code}}
+               <circle-progress float-right [percent]="account.timer"></circle-progress>
             </p>
+            <p>{{account.label}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  {{scanData | json}}
+  <div padding *ngIf="accounts.length === 0">
+    <p class="headerNoAccounts">No accounts added yet :(</p>
+    <p class="textNoAccounts">Add something first by clicking the '+' symbol on the bottom right!</p>
+  </div>
 
   <ion-fab right bottom>
    <button ion-fab (click)="addCodeModal()"><ion-icon name="add"></ion-icon></button>
  </ion-fab>
 
 </ion-content>
-<!-- 
+<!--
 <ion-footer no-shadow no-border>
   <ion-navbar transparent>
     <ion-buttons end>

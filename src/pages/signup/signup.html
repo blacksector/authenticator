@@ -1,18 +1,15 @@
-<ion-header no-shadow no-border>
-  <ion-navbar transparent>
-    <ion-title>Sign Up</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
+  <br />
+  <br />
   <div class="logo">
-    <img  src="assets/imgs/logo.png"  />
+    <p>Sign Up</p>
+    <img src="assets/imgs/logo.png"  />
   </div>
 
 
 
 
-  <form [formGroup]="emailSignUpForm" (ngSubmit)="emailSignUpFormSubmit()">
+  <form [formGroup]="emailSignUpForm" (ngSubmit)="emailSignUpFormSubmit()" padding>
 
     <ion-item no-lines>
       <ion-input type="text" formControlName="name" name="name" required placeholder="Name" clearInput></ion-input>

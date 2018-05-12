@@ -6,7 +6,7 @@ import { IonicPage, NavController, NavParams, ToastController,
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthProvider } from '../../providers/auth/auth';
-declare var cordova: any;
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -81,9 +81,12 @@ export class LoginPage {
          .then(() => {
            // showing succesfull message
            this.createToast('Signed in with email: ' + this.signInForm.value.email).present();
-           // closing dialog
-           //this.viewCtrl.dismiss();
+           // Remove the loader
            loader.dismiss();
+
+           // TODO: Should grab all the "accounts"/keys in database
+           
+           // closing dialog
            this.navCtrl.pop();
          },
 

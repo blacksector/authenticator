@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.quazi.android.authenticator" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.quazi.android.authenticator" version="0.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Authenticator</name>
     <description>An awesome two factor authentication app.</description>
     <author email="omar@quazi.co" href="https://quazi.co/">Omar Quazi</author>

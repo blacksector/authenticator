@@ -1,18 +1,22 @@
 <ion-header no-shadow no-border>
   <ion-navbar transparent>
-    <ion-title>Add Code</ion-title>
+    <ion-title>Add an account</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <ion-list>
-    <button ion-item (click)="scanWithCamera()">
-      Scan qr code
+  <p>Add an account by selecting one of the following options:</p>
+
+  <ion-list inset no-lines>
+    <button ion-item (click)="scanWithCamera()" icon-star>
+      <ion-icon name="camera"></ion-icon>
+      Scan a qr code
     </button>
-    <button ion-item (click)="manualInput()">
-      Add code manually
+    <button ion-item (click)="manualInput()" icon-star>
+      <ion-icon name="create"></ion-icon>
+      Enter a key manually
     </button>
   </ion-list>
 

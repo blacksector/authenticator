@@ -1,5 +1,11 @@
 page-home {
   ion-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 90px 1px;
+    width: 100%;
+    height: 100%;
     text-align: center;
   }
 
@@ -15,6 +21,16 @@ page-home {
   .providers {
     margin-top: -3px;
     font-size: 0.95em;
+  }
+
+  .headerNoAccounts {
+    font-size: 2.7em;
+    text-align: center;
+  }
+
+  .textNoAccounts {
+    font-size: 1.5em;
+    text-align: center;
   }
 
 }

@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController,
+  ViewController, ModalController} from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import otplib from 'otplib';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
+// Used to grab authentication keys from storage or save to storage
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -17,9 +21,10 @@ export class AddCodePage {
   scanData: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth, private storage: Storage,
     public toastCtrl: ToastController, public loadingCtrl: LoadingController,
-    private barcodeScanner: BarcodeScanner) {
+    private barcodeScanner: BarcodeScanner, public viewCtrl: ViewController,
+    public modalCtrl: ModalController) {
   }
 
   createToast(message: string) {
@@ -108,20 +113,59 @@ export class AddCodePage {
 
   }
 
+  saveAccount(data: any) {
+
+    // Algorithm is not set, set to SHA1 (Google Authenticator does too)
+    if (data.algorithm  === undefined) {
+      data["algorithm"] = 'SHA1';
+    }
+    // Digits is not defined, set to 6
+    if (data.digits === undefined) {
+      data["digits"] = 6;
+    }
+    // Time is not given, set it to 30 seconds
+    if (data.period === undefined) {
+      data["period"] = 30;
+    }
+
+    var accounts = [];
+    this.storage.get('accounts').then((val) => {
+      if (val != null && val != undefined && val != false) {
+        accounts = val;
+      }
+      accounts.push(data);
+      this.storage.set('accounts', accounts);
+      this.navCtrl.pop();
+    });
+  }
 
   scanWithCamera() {
     this.barcodeScanner.scan().then(barcodeData => {
-     this.scanData = this.parseKeyURI(barcodeData.text);
-     console.log(this.parseKeyURI(barcodeData.text));
+      var data = this.parseKeyURI(barcodeData.text);
+      // If we were successful in parsing the data,
+      // save it to storage
+      if (data != undefined) {
+        this.saveAccount(data);
+        //this.scanData = data;
+
+      } else {
+        this.createToast('An error occurred, couldn\'t read URI. Possibly invalid?');
+      }
     }).catch(err => {
-      this.scanData = err;
+      this.createToast('An error occurred: ' + err);
     });
   }
 
   manualInput() {
-
-    this.createToast('Manual input not implemented yet...').present();
+    this.modalCtrl.create('ManualPage').present();
+    //this.createToast('Manual input not implemented yet...').present();
 
   }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+
 
 }

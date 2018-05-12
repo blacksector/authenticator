@@ -1,0 +1,39 @@
+<ion-header no-shadow no-border>
+  <ion-navbar transparent>
+    <ion-title color="light">Manually add account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <form [formGroup]="manualInput" (ngSubmit)="saveKey()" padding>
+    <ion-item no-lines>
+      <ion-input type="text" formControlName="issuer" name="issuer" required clearInput placeholder="Issuer name"></ion-input>
+    </ion-item>
+    <br />
+    <ion-item no-lines>
+      <ion-input type="text" formControlName="label" name="label" required clearInput placeholder="Account name"></ion-input>
+    </ion-item>
+    <br />
+    <ion-item no-lines>
+      <ion-input type="text" formControlName="secret" clearInput placeholder="Your key"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label>Type</ion-label>
+      <ion-select formControlName="type">
+        <ion-option value="totp">Time-based</ion-option>
+        <ion-option value="hotp">Counter-based</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <br />
+
+    <button ion-button color="secondary" outline type="submit" block [disabled]="!manualInput.valid">Add Account</button>
+
+  </form>
+
+
+</ion-content>
