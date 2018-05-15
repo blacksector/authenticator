@@ -28,12 +28,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { LongPressModule } from 'ionic-long-press';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDG-xVhYCobpjKi8xesW-dR_1qMaGsedLM",
-  authDomain: "authenticator-clone.firebaseapp.com",
-  databaseURL: "https://authenticator-clone.firebaseio.com",
-  projectId: "authenticator-clone",
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
   storageBucket: "",
-  messagingSenderId: "327815911657"
+  messagingSenderId: ""
 };
 
 @NgModule({
