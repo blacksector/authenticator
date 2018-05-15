@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController,
-  LoadingController, ToastController} from 'ionic-angular';
+  LoadingController, ToastController, ActionSheetController,
+  AlertController } from 'ionic-angular';
 
 // Used to grab authentication keys from storage or save to storage
 import { Storage } from '@ionic/storage';
@@ -29,7 +30,8 @@ export class HomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, public afAuth: AngularFireAuth,
     public toastCtrl: ToastController, public loadingCtrl: LoadingController,
-    private storage: Storage) {
+    private storage: Storage, public actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController) {
 
     afAuth.authState.subscribe(user => {
       if (!user) {
@@ -68,6 +70,11 @@ export class HomePage {
 
   login() {
     this.modalCtrl.create('LoginPage').present();
+  }
+
+
+  settings() {
+    this.modalCtrl.create('SettingsPage').present();
   }
 
   logout() {
@@ -157,6 +164,77 @@ export class HomePage {
      this.getAccounts();
    });
    addCodePage.present();
+  }
+
+  pressed(index: any) {
+    let actionSheet = this.actionSheetCtrl.create({
+     title: 'Edit ' + this.accounts[index].label,
+     buttons: [
+       {
+         text: 'Delete',
+         role: 'destructive',
+         handler: () => {
+
+           let alert = this.alertCtrl.create({
+              title: 'Confirm',
+              message: 'Are you sure you want to delete "' + this.accounts[index].label +'"? This cannot be undone!',
+              buttons: [
+                {
+                  text: 'Never mind',
+                  role: 'cancel',
+                  handler: () => {
+                    // Do nothing
+                  }
+                },
+                {
+                  text: 'Yes',
+                  handler: () => {
+                    this.createToast('Deleting ' + this.accounts[index].label).present();
+                    this.removeAccount(index);
+                  }
+                }
+              ]
+            });
+            alert.present();
+         }
+       },
+       {
+         text: 'Edit',
+         handler: () => {
+           //this.createToast('Editing ' + this.accounts[index].label).present();
+           this.editAccount(index);
+         }
+       },
+       {
+         text: 'Cancel',
+         role: 'cancel',
+         handler: () => {
+           // Do nothing
+         }
+       }
+     ]
+   });
+
+   actionSheet.present();
+  }
+
+  removeAccount(index: any) {
+    this.accounts.splice(index, 1);
+    // Set the modified array to memory
+    this.storage.set('accounts', this.accounts);
+  }
+
+  editAccount(index: any) {
+    let editPage = this.modalCtrl.create('EditPage', {index: index, data: this.accounts[index]});
+    editPage.onDidDismiss((index, data) => {
+      // Returned will be the modified data and index of the data in
+      // this.accounts.
+
+
+
+      this.getAccounts();
+   });
+   editPage.present();
   }
 
   setIssuerURL() {

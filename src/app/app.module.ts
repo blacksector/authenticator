@@ -24,6 +24,9 @@ import otplib from 'otplib';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
+// Used for long press detection
+import { LongPressModule } from 'ionic-long-press';
+
 const firebaseConfig = {
   apiKey: "AIzaSyDG-xVhYCobpjKi8xesW-dR_1qMaGsedLM",
   authDomain: "authenticator-clone.firebaseapp.com",
@@ -68,7 +71,8 @@ const firebaseConfig = {
       "showSubtitle": false,
       "showUnits": false,
       "showInnerStroke": false
-    })
+    }),
+    LongPressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

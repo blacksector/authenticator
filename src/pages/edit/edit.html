@@ -1,0 +1,27 @@
+<ion-header no-shadow no-border>
+  <ion-navbar transparent>
+    <ion-buttons>
+      <button ion-button icon-left (click)="this.navCtrl.pop()" color="dark"><ion-icon name="ios-arrow-back"></ion-icon></button>
+    </ion-buttons>
+    <ion-title>Edit {{ account.label }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <p>Here is some details:</p>
+
+  <ion-card *ngIf="account">
+    <ion-card-content>
+      <p>Type: {{ account.type }}</p>
+      <p>Secret: {{ account.secret }}</p>
+      <p>Period: {{ account.period }}</p>
+      <p>Label: {{ account.label }}</p>
+      <p>Issuer: {{ account.issuer }}</p>
+      <p>Digits: {{ account.digits }}</p>
+      <p>Algorithm: {{ account.algorithm }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

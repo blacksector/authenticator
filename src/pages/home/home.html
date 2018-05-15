@@ -2,8 +2,8 @@
   <ion-navbar transparent>
     <ion-title>Authenticator</ion-title>
     <ion-buttons end>
-      <button *ngIf="!loggedIn" ion-button icon-right (click)="login()" color="dark"><ion-icon name="ios-person"></ion-icon></button>
-      <button *ngIf="loggedIn" ion-button icon-right (click)="logout()" color="dark"><ion-icon name="ios-log-out"></ion-icon></button>
+      <button *ngIf="!loggedIn" ion-button icon-right (click)="settings()" color="darker"><ion-icon name="cog"></ion-icon></button>
+      <!-- <button *ngIf="loggedIn" ion-button icon-right (click)="logout()" color="dark"><ion-icon name="ios-log-out"></ion-icon></button> -->
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -12,8 +12,8 @@
 
   <ion-grid *ngIf="accounts.length > 0">
     <ion-row>
-      <ion-col *ngFor="let account of accounts; let i = index" col-xlg-2 col-lg-3 col-md-4 col-sm-12 col-12 (click)="accountDetails(i)">
-        <ion-card>
+      <ion-col *ngFor="let account of accounts; let i = index" col-xlg-2 col-lg-3 col-md-4 col-sm-12 col-12>
+        <ion-card ion-long-press [interval]="300" (onPressing)="pressed(i)">
           <ion-card-content>
             <img *ngIf="account.link" class="logos" float-left src="https://logo.clearbit.com/{{account.link}}?size=25" />
             <img *ngIf="!account.link" class="logos" float-left src="assets/imgs/logo.png" />
