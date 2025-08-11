@@ -1,8 +1,7 @@
 {
   "name": "authenticator",
-  "app_id": "",
-  "type": "ionic-angular",
   "integrations": {
-    "cordova": {}
-  }
+    "capacitor": {}
+  },
+  "type": "angular"
 }

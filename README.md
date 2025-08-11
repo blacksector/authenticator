@@ -9,7 +9,7 @@
 
 <h4 align="center">An awesome two factor authentication app.</h4>
 
-<h6 align="center">Current Version: 0.0.9</h6>
+<h6 align="center">Current Version: 1.0.0</h6>
 
 <p align="center">
   <a href='https://ko-fi.com/V7V65XWA' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi5.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
@@ -33,23 +33,36 @@
 ## Key Features
 
 Tech Stack:
-* Hybrid (Ionic 3)
+* Modern Hybrid App (Ionic 7 + Angular 17)
+* Capacitor for native functionality
 
-Backend:
-* Firebase (Integrated but not yet complete)
-* [otplib](https://www.npmjs.com/package/otplib)
-* [parseKeyURI](https://github.com/blacksector/parseKeyURI)
-* [Clearbit Logo API](https://clearbit.com/logo)
+Features:
+* **Modern Architecture**: Built with latest Angular 17 and Ionic 7
+* **Firebase Integration**: Updated to Firebase v10 with modular SDK
+* **TOTP/HOTP Support**: Uses [otplib v12](https://www.npmjs.com/package/otplib) for token generation
+* **QR Code Scanning**: Camera integration for easy setup
+* **Cross-Platform**: Runs on iOS, Android, and web
+* **Dark Mode**: System-based dark mode support
+* **Local Storage**: Secure local token storage
+* **Provider Logos**: Dynamic logos for common providers
 
-I got a little busy with work and some other stuff so I haven't had the time to finish Firebase integration. The login and signup works perfectly but I have not yet finished creating the backup and restore methods. I have a feeling in the future I will force users to login or sign up before using the app; it just makes everyone's life simpler.
+## Recent Updates (v1.0.0)
 
-On the other hand, I haven't had a chance to fix hotp integration, every new account/key you add will act as a totp key instead. Going to have to fix that in a possible future release!
+🎉 **Major Modernization Complete!**
 
-Oh and yes, as you can see in the screenshots, based on common "providers" or "issuers" a logo is added beside the card! A default logo is used when the app doesn't know who the issuer is. To grab the logos, I used the free [Clearbit Logo API](https://clearbit.com/logo)
+* ⬆️ **Upgraded to Ionic 7 + Angular 17** - Latest stable versions with improved performance
+* 🔥 **Firebase v10 Integration** - Modern modular Firebase SDK
+* 📱 **Capacitor Migration** - Replaced deprecated Cordova with Capacitor
+* 🎨 **Modern UI Components** - Updated to latest Ionic components
+* 📐 **TypeScript 5.4** - Strict mode enabled with latest language features
+* 🔍 **ESLint Integration** - Replaced TSLint with modern ESLint
+* 🏗️ **Angular CLI Build System** - Replaced deprecated ionic-app-scripts
+* 📱 **Native Plugins Updated** - Camera, StatusBar, SplashScreen via Capacitor
+* 🎯 **Modern Project Structure** - Follows current Ionic/Angular best practices
 
 ## Setup
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. You will also need Cordova and Ionic, follow the <a href="https://ionicframework.com/getting-started">Ionic getting started</a> guide for more.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. You will also need the Ionic CLI and Angular CLI.
 
 From your command line:
 
@@ -63,12 +76,36 @@ $ cd authenticator
 # Install dependencies
 $ npm install
 
-# Run the app - All of the features won't work, I recommend deploying on an emulator
+# Install Ionic CLI and Angular CLI globally (if not already installed)
+$ npm install -g @ionic/cli @angular/cli
+
+# Run the app in development mode
+$ ionic serve
+
+# Or run with live reload for mobile testing
 $ ionic serve --lab
 
+# Build for production
+$ ionic build --prod
+
+# Add mobile platforms (requires additional setup)
+$ ionic capacitor add ios
+$ ionic capacitor add android
+
+# Run on mobile device/emulator
+$ ionic capacitor run ios
+$ ionic capacitor run android
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+### Prerequisites
+
+- **Node.js** (v18+ recommended)
+- **npm** (comes with Node.js)
+- **Ionic CLI**: `npm install -g @ionic/cli`
+- **Angular CLI**: `npm install -g @angular/cli`
+- **For mobile development**:
+  - **iOS**: Xcode (macOS only)
+  - **Android**: Android Studio with Android SDK
 
 After you have downloaded and run `ionic serve` you may notice a Invalid API key error. You must sign up for a Firebase Account and <a href="https://console.firebase.google.com/u/0/">create a project</a> and add your API keys for the Web SDK into the `src/app/app.module.ts` file.
 
