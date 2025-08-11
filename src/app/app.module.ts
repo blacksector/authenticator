@@ -1,31 +1,25 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
-import { MyApp } from './app.component';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
-import { IonicStorageModule } from '@ionic/storage';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { HttpModule } from '@angular/http';
+// Firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
-// AngularFire + Firebase
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-
-import { FirebaseProvider } from './../providers/firebase/firebase';
-import { AuthProvider } from '../providers/auth/auth';
-
+// Progress Circle
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
-import otplib from 'otplib';
-
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-
-// Used for long press detection
-import { LongPressModule } from 'ionic-long-press';
+// Capacitor
+import { StatusBar } from '@capacitor/status-bar';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 const firebaseConfig = {
   apiKey: "",
@@ -33,58 +27,49 @@ const firebaseConfig = {
   databaseURL: "",
   projectId: "",
   storageBucket: "",
-  messagingSenderId: ""
+  messagingSenderId: "",
+  appId: ""
 };
 
 @NgModule({
-  declarations: [
-    MyApp,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
     IonicStorageModule.forRoot(),
     NgCircleProgressModule.forRoot({
-      "backgroundColor": "#333333",
-      "backgroundOpacity": 1,
-      "backgroundStrokeWidth": 0,
-      "backgroundPadding": 0,
-      "radius": 5,
-      "space": 0,
-      "maxPercent": 100,
-      "unitsColor": "#483500",
-      "outerStrokeWidth": 10,
-      "outerStrokeColor": "#FFFFFF",
-      "outerStrokeLinecap": "butt",
-      "innerStrokeColor": "#FFFFFF",
-      "innerStrokeWidth": 0,
-      "titleColor": "#483500",
-      "subtitleColor": "#483500",
-      "animation": false,
-      "animateTitle": false,
-      "animationDuration": 0,
-      "showTitle": false,
-      "showSubtitle": false,
-      "showUnits": false,
-      "showInnerStroke": false
+      backgroundColor: "#333333",
+      backgroundOpacity: 1,
+      backgroundStrokeWidth: 0,
+      backgroundPadding: 0,
+      radius: 5,
+      space: 0,
+      maxPercent: 100,
+      unitsColor: "#483500",
+      outerStrokeWidth: 10,
+      outerStrokeColor: "#FFFFFF",
+      outerStrokeLinecap: "butt",
+      innerStrokeColor: "#FFFFFF",
+      innerStrokeWidth: 0,
+      titleColor: "#483500",
+      subtitleColor: "#483500",
+      animation: false,
+      animateTitle: false,
+      animationDuration: 0,
+      showTitle: false,
+      showSubtitle: false,
+      showUnits: false,
+      showInnerStroke: false
     }),
-    LongPressModule
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FirebaseProvider,
-    AuthProvider,
-    BarcodeScanner
-  ]
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

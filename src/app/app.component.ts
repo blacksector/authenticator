@@ -1,36 +1,41 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { Storage } from '@ionic/storage';
-
+import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
-export class MyApp {
-  rootPage:any = '';
+export class AppComponent implements OnInit {
+  constructor(
+    private platform: Platform,
+    private router: Router,
+    private storage: Storage
+  ) {}
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private storage: Storage) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.hide();
+  async ngOnInit() {
+    await this.storage.create();
+    await this.initializeApp();
+  }
 
-      this.storage.get('firstUse').then((val) => {
-        if (val == false) {
-          this.rootPage = 'HomePage';
-          // Start the ads engine:
-          // this.showBanner();
-        } else {
-          this.storage.set('firstUse', false);
-          this.rootPage = 'WelcomePage';
-        }
-        splashScreen.hide();
-      });
+  async initializeApp() {
+    await this.platform.ready();
 
-    });
+    await StatusBar.setStyle({ style: Style.Default });
+    
+    const firstUse = await this.storage.get('firstUse');
+    
+    if (firstUse === false) {
+      this.router.navigate(['/home']);
+    } else {
+      await this.storage.set('firstUse', false);
+      this.router.navigate(['/welcome']);
+    }
+    
+    await SplashScreen.hide();
   }
 }
